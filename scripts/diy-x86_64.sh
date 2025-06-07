@@ -275,6 +275,7 @@ sed -i 's/3.openwrt.pool.ntp.org/time2.cloud.tencent.com/g' package/base-files/f
 # 加入作者信息
 sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-$(date +%Y%m%d)'/g"  package/base-files/files/etc/openwrt_release
 sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By grandway2025'/g" package/base-files/files/etc/openwrt_release
+sed -i 's|^OPENWRT_RELEASE=".*"|OPENWRT_RELEASE="OpenWrt 定制版"|' package/base-files/files/usr/lib/os-release
 
 # CURRENT_DATE
 sed -i "/BUILD_DATE/d" package/base-files/files/usr/lib/os-release
