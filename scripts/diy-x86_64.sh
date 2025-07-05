@@ -361,6 +361,9 @@ git clone https://$github/destan19/OpenAppFilter package/new/OpenAppFilter
 # adguardhome
 git clone https://$gitea/luci-app-adguardhome package/new/luci-app-adguardhome
 
+# PowerOff 关机插件
+# git clone https://github.com/WukongMaster/luci-app-poweroff package/luci-app-poweroff
+
 # nlbwmon
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
