@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: 💻 X86_64-OpenWrt
+name: 💻 X86_64
 
 on:
   repository_dispatch:
@@ -24,9 +24,10 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: v24.10.1
+  REPO_BRANCH: openwrt-24.10
   CONFIG_FILE: configs/x86_64.config
   DIY_SCRIPT: scripts/diy-x86_64.sh
+  CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
@@ -37,6 +38,11 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps: 
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        path: ZeroWrt-Action
+        
     - name: Setup variables
       run: |
         sudo timedatectl set-timezone 'Asia/Shanghai'
@@ -56,6 +62,16 @@ jobs:
         echo -e "\n\e[1;32mKernel:\e[0m"
         uname -a
         echo
+
+    - name: Install Caddy Server
+      run: |
+        sudo curl -sL -o /usr/bin/caddy https://github.com/zhiern/OpenWRT/releases/download/Caddy/caddy
+        sudo chmod 755 /usr/bin/caddy
+        echo ":8080 {" > caddyfile
+        echo "    root * $(pwd)" >> caddyfile
+        echo "    file_server browse" >> caddyfile
+        echo "}" >> caddyfile
+        sudo /usr/bin/caddy start --config caddyfile --adapter caddyfile
         
     - name: Free disk space
       uses: zhiern/actions@free-disk
@@ -124,7 +140,7 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_SCRIPT
         $GITHUB_WORKSPACE/scripts/preset-mihimo-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/scripts/preset-adguard-core.sh $CLASH_KERNEL
-               
+        
     - name: Set default LAN IP
       run: |
         cd $OPENWRT_PATH
@@ -149,8 +165,6 @@ jobs:
         cd $OPENWRT_PATH
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
-        sed -n 's/.*lan) ipad=${ipaddr:-"\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)"} ;;.*/\1/p' package/base-files/files/bin/config_generate | head -n 1 > IP_ADDR
-        [ -s IP_ADDR ] && echo "IP_ADDR=$(cat IP_ADDR)" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
         echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "FILE_DATE=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_ENV
@@ -173,14 +187,14 @@ jobs:
         cd $OPENWRT_PATH
         mkdir -p ota
         OTA_URL="https://github.com/grandway2025/Actions-OpenWrt/releases/download"
-        SHA256=$(sha256sum bin/targets/x86/64*/OpenWrt-vip-plus-x86-64-generic-squashfs-combined-efi.img.gz | awk '{print $1}')
-        cat > ota/x86.json <<EOF
+        SHA256=$(sha256sum bin/targets/x86/64*/openwrt-x86-64-generic-squashfs-combined-efi.img.gz | awk '{print $1}')
+        cat > ota/ota.json <<EOF
         {
           "x86_64": [
             {
               "build_date": "$CURRENT_DATE",
               "sha256sum": "$SHA256",
-              "url": "$OTA_URL/x86_64-OpenWrt-${{ env.latest_release }}/OpenWrt-vip-plus-x86-64-generic-squashfs-combined-efi.img.gz"
+              "url": "$OTA_URL/x86_64-OpenWrt-${{ env.latest_release }}/openwrt-x86-64-generic-squashfs-combined-efi.img.gz"
             }
           ]
         }
@@ -193,9 +207,10 @@ jobs:
         mv -f $OPENWRT_PATH/ota/* ./
         cat sha256sums
         cp $OPENWRT_PATH/.config build.config
-        mv -f $OPENWRT_PATH/bin/packages/*/*/*.ipk packages
-        tar -zcf Packages.tar.gz packages
-        rm -rf packages feeds.buildinfo version.buildinfo
+        mkdir -p kernel
+        mv -f packages/* kernel
+        tar -zcf kernel.tar.gz kernel
+        rm -rf packages feeds.buildinfo version.buildinfo kernel
         echo "KERNEL=$(cat *.manifest | grep ^kernel | cut -d- -f2 | tr -d ' ')" >> $GITHUB_ENV
         echo "FIRMWARE_PATH=$PWD" >> $GITHUB_ENV
         
@@ -230,3 +245,13 @@ jobs:
           - ${{ env.COMMIT_DATE }}
           - ${{ env.COMMIT_MESSAGE }}
           - ${{ env.COMMIT_HASH }}
+
+    - name: Upload OTA File
+      uses: zhiern/FTP-Deploy-Action@master
+      with:
+        server: ${{ secrets.ftp_address }}
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
+        server-dir: ${{ secrets.file_path }}/x86_64/
+        local-dir: ${{ env.OPENWRT_PATH }}/ota/
+        dangerous-clean-slate: true
