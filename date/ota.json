@@ -1,0 +1,9 @@
+{
+  "x86_64": [
+    {
+      "build_date": "1751818432",
+      "sha256sum": "168676373b0d3fc05cc0d0c1fd1c7f1e423f8271b6b5177b327738ce0631f71c",
+      "url": "https://github.com/zhiern/ZeroWrt-Action/releases/download/X86_64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz"
+    }
+  ]
+}
