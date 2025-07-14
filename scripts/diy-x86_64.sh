@@ -384,9 +384,9 @@ sed -i "s/bing/none/g" package/new/luci-app-argon-config/root/etc/config/argon
 
 # 主题设置
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a href="https://github.com/grandway2025/Actions-OpenWrt" target="_blank">OpenWRT</a> |g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+# sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a href="https://github.com/grandway2025/Actions-OpenWrt" target="_blank">OpenWRT</a> |g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a href="https://github.com/grandway2025/Actions-OpenWrt" target="_blank">OpenWRT</a> |g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+# sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a href="https://github.com/grandway2025/Actions-OpenWrt" target="_blank">OpenWRT</a> |g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # lucky
 git clone https://$github/gdy666/luci-app-lucky.git package/new/lucky
