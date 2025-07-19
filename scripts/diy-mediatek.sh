@@ -12,12 +12,19 @@ sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-$(date +%Y%m%d)
 sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By grandway2025'/g" package/base-files/files/etc/openwrt_release
 sed -i "s|^OPENWRT_RELEASE=\".*\"|OPENWRT_RELEASE=\"OpenWrt定制版 \"|" package/base-files/files/usr/lib/os-release
 
-# 删除旧主题
-rm -rf feeds/luci/themes/luci-theme-argon
-
 # argon
+rm -rf feeds/luci/themes/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
 curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/argon/bg1.jpg  > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/argon/iconfont.ttf > package/new/luci-theme-argon/htdocs/luci-static/argon/fonts/iconfont.ttf
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/argon/iconfont.woff > package/new/luci-theme-argon/htdocs/luci-static/argon/fonts/iconfont.woff
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/argon/iconfont.woff2 > package/new/luci-theme-argon/htdocs/luci-static/argon/fonts/iconfont.woff2
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/argon/cascade.css > package/new/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
+
+# argon-config
+rm -rf feeds/luci/applications/luci-app-argon-config
+git clone https://github.com/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
+sed -i "s/bing/none/g" package/new/luci-app-argon-config/root/etc/config/argon
 
 # 主题设置
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
@@ -71,7 +78,7 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/luci/applications/luci-app-alist
 
 #添加额外软件包
-# golang 1.24
+# golang 1.25
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
@@ -97,6 +104,13 @@ git clone https://github.com/sirpdboy/luci-app-taskplan package/new/luci-app-tas
 # luci-app-webdav
 git clone -b openwrt-24.10 https://github.com/sbwml/luci-app-webdav.git package/new/luci-app-webdav
 
+# openlist
+rm -rf feeds/luci/applications/luci-app-openlist
+git clone https://github.com//sbwml/luci-app-openlist package/new/openlist
+
+# socat
+git clone https://github.com/zhiern/luci-app-socat package/new/luci-app-socat
+
 # adguardhome
 mkdir -p files/usr/bin
 AGH_CORE=$(curl -sL https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | grep /AdGuardHome_linux_arm64 | awk -F '"' '{print $4}')
@@ -121,6 +135,10 @@ git clone https://git.kejizero.online/zhao/packages_utils_docker feeds/packages/
 git clone https://git.kejizero.online/zhao/packages_utils_dockerd feeds/packages/utils/dockerd
 git clone https://git.kejizero.online/zhao/packages_utils_containerd feeds/packages/utils/containerd
 git clone https://git.kejizero.online/zhao/packages_utils_runc feeds/packages/utils/runc
+
+# default-settings 
+rm -rf package/emortal/default-settings
+git clone -b mediatek https://github.com/grandway2025/default-settings package/new/default-settings
 
 # 更新feeds 
 ./scripts/feeds update -a && ./scripts/feeds install -a
