@@ -65,16 +65,9 @@ rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/lang/golang
  
 # 删除软件包
-rm -rf feeds/luci/applications/luci-app-passwall
-rm -rf feeds/luci/applications/luci-app-passwall2
-rm -rf feeds/luci/applications/luci-app-ssr-plus
-rm -rf feeds/luci/applications/luci-app-vssr
-rm -rf feeds/luci/applications/luci-app-appfilter
-rm -rf feeds/luci/applications/luci-app-ddns-go
-rm -rf feeds/luci/applications/luci-app-openclash
-rm -rf feeds/luci/applications/luci-app-lucky
-rm -rf feeds/luci/applications/luci-app-mosdns
-rm -rf feeds/luci/applications/luci-app-alist
+rm -rf feeds/luci/applications/{luci-app-daed,luci-app-dae,luci-app-homeproxy,luci-app-openclash}
+rm -rf feeds/luci/applications/{luci-app-passwall,luci-app-passwall2,luci-app-ssr-plus,luci-app-vssr}
+rm -rf feeds/luci/applications/{luci-app-appfilter,luci-app-ddns-go,luci-app-lucky,luci-app-mosdns,luci-app-alist}
 
 #添加额外软件包
 # golang 1.25
