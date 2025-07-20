@@ -42,32 +42,14 @@ sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_b
 # sed -i "s/ImmortalWrt-5G/OpenWrt-5G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 
 # 删除软件依赖
-rm -rf feeds/packages/net/chinadns-ng 
-rm -rf feeds/packages/net/hysteria 
-rm -rf feeds/packages/net/mosdns
-rm -rf feeds/packages/net/shadowsocksr-libev
-rm -rf feeds/packages/net/shadowsocks-rust 
-rm -rf feeds/packages/net/shadowsocks-libev 
-rm -rf feeds/packages/net/tcping 
-rm -rf feeds/packages/net/trojan
-rm -rf feeds/packages/net/trojan-plus
-rm -rf feeds/packages/net/tuic-client  
-rm -rf feeds/packages/net/v2ray-core  
-rm -rf feeds/packages/net/v2ray-plugin
-rm -rf feeds/packages/net/xray-core 
-rm -rf feeds/packages/net/xray-plugin
-rm -rf feeds/packages/net/v2ray-geodata
-rm -rf feeds/packages/net/open-app-filter
-rm -rf feeds/packages/net/mosdns
-rm -rf feeds/packages/net/lucky
-rm -rf feeds/packages/net/ddns-go
-rm -rf feeds/packages/utils/v2dat
-rm -rf feeds/packages/lang/golang
- 
+rm -rf feeds/packages/net/{v2ray-geodata,open-app-filter,shadowsocksr-libev,shadowsocks-rust,shadowsocks-libev}
+rm -rf feeds/packages/net/{tcping,trojan,trojan-plus,tuic-client,v2ray-core,v2ray-plugin,xray-core,xray-plugin,sing-box}
+rm -rf feeds/packages/net/{chinadns-ng,hysteria,mosdns,lucky,ddns-go,v2dat,golang}
+
 # 删除软件包
 rm -rf feeds/luci/applications/{luci-app-daed,luci-app-dae,luci-app-homeproxy,luci-app-openclash}
 rm -rf feeds/luci/applications/{luci-app-passwall,luci-app-passwall2,luci-app-ssr-plus,luci-app-vssr}
-rm -rf feeds/luci/applications/{luci-app-appfilter,luci-app-ddns-go,luci-app-lucky,luci-app-mosdns,luci-app-alist}
+rm -rf feeds/luci/applications/{luci-app-appfilter,luci-app-ddns-go,luci-app-lucky,luci-app-mosdns,luci-app-alist,luci-app-openlist}
 
 #添加额外软件包
 # golang 1.25
