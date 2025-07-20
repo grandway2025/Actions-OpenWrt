@@ -86,6 +86,7 @@ git clone https://github.com//sbwml/luci-app-openlist package/new/openlist
 git clone https://github.com/zhiern/luci-app-socat package/new/luci-app-socat
 
 # adguardhome
+git clone https://git.kejizero.online/zhao/luci-app-adguardhome package/new/luci-app-adguardhome
 mkdir -p files/usr/bin
 AGH_CORE=$(curl -sL https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | grep /AdGuardHome_linux_arm64 | awk -F '"' '{print $4}')
 wget -qO- $AGH_CORE | tar xOvz > files/usr/bin/AdGuardHome
