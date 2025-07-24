@@ -39,6 +39,17 @@ rm -rf feeds/luci/applications/luci-app-argon-config
 git clone https://github.com/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
 sed -i "s/bing/none/g" package/new/luci-app-argon-config/root/etc/config/argon
 
+# kucat
+git clone https://github.com/sirpdboy/luci-theme-kucat package/new/kucat
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/bg1.jpg > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/img/bg1.jpg
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.ttf > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.ttf
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.woff > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.woff
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.woff2 > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.woff2
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/style.css > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/css/style.css
+
+# luci-app-kucat-config
+git clone https://github.com/sirpdboy/luci-app-kucat-config package/new/luci-app-kucat-config
+
 # 主题设置
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
