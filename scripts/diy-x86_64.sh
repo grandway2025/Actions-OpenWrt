@@ -275,9 +275,9 @@ sed -i "s|^OPENWRT_RELEASE=\".*\"|OPENWRT_RELEASE=\"OpenWrt定制版 @R$(date +%
 sed -i "/BUILD_DATE/d" package/base-files/files/usr/lib/os-release
 sed -i "/BUILD_ID/aBUILD_DATE=\"$CURRENT_DATE\"" package/base-files/files/usr/lib/os-release
 
-# golang 1.24
+# golang 1.25
 rm -rf feeds/packages/lang/golang
-git clone https://$gitea/packages_lang_golang -b 25.x feeds/packages/lang/golang
+git clone git clone https://$github/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # luci-app-webdav
 git clone https://$github/sbwml/luci-app-webdav package/new/luci-app-webdav
@@ -333,7 +333,7 @@ git clone https://$github/sbwml/feeds_packages_net_aria2 -b 22.03 feeds/packages
 
 # SSRP & Passwall
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
-git clone https://$github/grandway2025/openwrt_helloworld package/new/helloworld
+git clone -b openwrt-24.10 https://$github/grandway2025/helloworld package/new/helloworld
 
 # alist
 rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
