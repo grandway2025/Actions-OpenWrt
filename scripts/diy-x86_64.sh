@@ -130,7 +130,7 @@ popd
 
 # firewall4
 mkdir -p package/network/config/firewall4/patches
-curl -s $mirror/Customize/firewall4/Makefile > package/network/config/firewall4/Makefile
+curl -s $mirror/Customize/X86_64/firewall4/Makefile > package/network/config/firewall4/Makefile
 sed -i 's|$(PROJECT_GIT)/project|https://github.com/openwrt|g' package/network/config/firewall4/Makefile
 
 # fix ct status dnat
@@ -353,7 +353,9 @@ sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 git clone https://git.kejizero.online/zhao/luci-app-caddy package/new/caddy
 
 # Mosdns
-git clone https://$github/sbwml/luci-app-mosdns -b v5 package/new/mosdns
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/new/mosdns
+cp -r package/new/mosdns/{luci-app-mosdns,mosdns,v2dat} package/new/helloworld
+rm -rf package/new/mosdns
 
 # OpenAppFilter
 git clone https://$github/destan19/OpenAppFilter package/new/OpenAppFilter
@@ -373,6 +375,17 @@ sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/lu
 
 # mentohust
 git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
+
+# kucat
+git clone https://github.com/sirpdboy/luci-theme-kucat package/new/kucat
+# curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/bg1.jpg > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/img/bg1.jpg
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.ttf > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.ttf
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.woff > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.woff
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.woff2 > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.woff2
+curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/style.css > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/css/style.css
+
+# luci-app-kucat-config
+git clone https://github.com/sirpdboy/luci-app-kucat-config package/new/luci-app-kucat-config
 
 # argon
 git clone https://$github/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
