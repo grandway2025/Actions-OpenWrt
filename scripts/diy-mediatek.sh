@@ -65,7 +65,7 @@ sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_b
 #添加额外软件包
 # golang 1.25
 rm -rf feeds/packages/lang/golang
-git clone https://git.kejizero.online/zhao/packages_lang_golang -b 25.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # SSRP & Passwall
 rm -rf feeds/packages/net/{daed,xray-core,v2ray-core,v2ray-geodata,sing-box}
