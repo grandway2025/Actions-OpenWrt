@@ -277,7 +277,7 @@ sed -i "/BUILD_ID/aBUILD_DATE=\"$CURRENT_DATE\"" package/base-files/files/usr/li
 
 # golang 1.25
 rm -rf feeds/packages/lang/golang
-git clone git clone https://$github/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
+git clone https://$github/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # luci-app-webdav
 git clone https://$github/sbwml/luci-app-webdav package/new/luci-app-webdav
