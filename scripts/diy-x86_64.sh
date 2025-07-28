@@ -34,8 +34,8 @@ sed -i 's/ubus_parallel_req 2/ubus_parallel_req 6/g' feeds/packages/net/nginx/fi
 sed -i '/ubus_parallel_req/a\        ubus_script_timeout 300;' feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
 
 # nginx - config
-curl -s $mirror/Customize/nginx/luci.locations > feeds/packages/net/nginx/files-luci-support/luci.locations
-curl -s $mirror/Customize/nginx/uci.conf.template > feeds/packages/net/nginx-util/files/uci.conf.template
+curl -s $mirror/Customize/X86_64/nginx/luci.locations > feeds/packages/net/nginx/files-luci-support/luci.locations
+curl -s $mirror/Customize/X86_64/nginx/uci.conf.template > feeds/packages/net/nginx-util/files/uci.conf.template
 
 # uwsgi - fix timeout
 sed -i '$a cgi-timeout = 600' feeds/packages/net/uwsgi/files-luci-support/luci-*.ini
@@ -238,9 +238,6 @@ sed -i '/PS1/a\export TERM=xterm-color' package/base-files/files/etc/profile
 # 切换bash
 sed -i 's#ash#bash#g' package/base-files/files/etc/passwd
 sed -i '\#export ENV=/etc/shinit#a export HISTCONTROL=ignoredups' package/base-files/files/etc/profile
-mkdir -p files/root
-curl -so files/root/.bash_profile $mirror/doc/files/root/.bash_profile
-curl -so files/root/.bashrc $mirror/doc/files/root/.bashrc
 
 # rootfs files
 mkdir -p files/etc/sysctl.d
@@ -295,13 +292,13 @@ sed -i 's/env conf_inc/env conf_inc enable/g' feeds/packages/net/frp/files/frpc.
 sed -i "s/'conf_inc:list(string)'/& \\\\/" feeds/packages/net/frp/files/frpc.init
 sed -i "/conf_inc:list/a\\\t\t\'enable:bool:0\'" feeds/packages/net/frp/files/frpc.init
 sed -i '/procd_open_instance/i\\t\[ "$enable" -ne 1 \] \&\& return 1\n' feeds/packages/net/frp/files/frpc.init
-curl -s $mirror/Customize/frpc/001-luci-app-frpc-hide-token.patch | patch -p1
-curl -s $mirror/Customize/frpc/002-luci-app-frpc-add-enable-flag.patch | patch -p1
+curl -s $mirror/Customize/X86_64/frpc/001-luci-app-frpc-hide-token.patch | patch -p1
+curl -s $mirror/Customize/X86_64/frpc/002-luci-app-frpc-add-enable-flag.patch | patch -p1
 
 # natmap
 sed -i 's/log_stdout:bool:1/log_stdout:bool:0/g;s/log_stderr:bool:1/log_stderr:bool:0/g' feeds/packages/net/natmap/files/natmap.init
 pushd feeds/luci
-    curl -s $mirror/Customize/natmap/0001-luci-app-natmap-add-default-STUN-server-lists.patch | patch -p1
+    curl -s $mirror/Customize/X86_64/natmap/0001-luci-app-natmap-add-default-STUN-server-lists.patch | patch -p1
 popd
 
 # samba4 - bump version
@@ -378,7 +375,7 @@ git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # argon
 git clone https://$github/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
-curl -s $mirror/Customize/argon/bg1.jpg > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+curl -s $mirror/Customize/x86_64/argon/bg1.jpg > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # argon-config
 git clone https://$github/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
@@ -424,7 +421,7 @@ exit 0
 '> ./package/base-files/files/etc/rc.local
 
 # 默认设置
-git clone --depth=1 -b openwrt-24.10 https://$github/grandway2025/default-settings package/new/default-settings
+git clone --depth=1 -b openwrt-24.10 https://$github/zhiern/default-settings package/new/default-settings
 
 # distfeeds.conf
 mkdir -p files/etc/opkg
@@ -436,25 +433,6 @@ src/gz openwrt_routing https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.
 src/gz openwrt_telephony https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/telephony
 EOF
 
-# Vermagic
-# curl -s https://downloads.openwrt.org/releases/24.10.1/targets/x86/64/openwrt-24.10.1-x86-64.manifest \
-# | grep "^kernel -" \
-# | awk '{print $3}' \
-# | sed -n 's/.*~\([a-f0-9]\+\)-r[0-9]\+/\1/p' > vermagic
-# sed -i 's#grep '\''=\[ym\]'\'' \$(LINUX_DIR)/\.config\.set | LC_ALL=C sort | \$(MKHASH) md5 > \$(LINUX_DIR)/\.vermagic#cp \$(TOPDIR)/vermagic \$(LINUX_DIR)/.vermagic#g' include/kernel-defaults.mk
-
-# Toolchain Cache
-#if [ "$BUILD_FAST" = "y" ]; then
-#    TOOLCHAIN_URL=https://github.com/oppen321/openwrt_caches/releases/download/OpenWrt_Toolchain_Cache
-#    curl -L -k ${TOOLCHAIN_URL}/toolchain_gcc13_x86_64.tar.zst -o toolchain.tar.zst $CURL_BAR
-#    tar -I "zstd" -xf toolchain.tar.zst
-#    rm -f toolchain.tar.zst
-#    mkdir bin
-#    find ./staging_dir/ -name '*' -exec touch {} \; >/dev/null 2>&1
-#    find ./tmp/ -name '*' -exec touch {} \; >/dev/null 2>&1
-#fi
-
-# init openwrt config
 rm -rf tmp/*
      
 # install feeds
