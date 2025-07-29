@@ -59,7 +59,7 @@ sed -i "s/192.168.1.1/$LAN/g" package/base-files/files/bin/config_generate
 # sed -i 's/OpenWrt/ZeroWrt/' package/base-files/files/bin/config_generate
 
 # banner
-# curl -s $mirror/Customize/base-files/banner > package/base-files/files/etc/banner
+# curl -s $mirror/Customize/x86_64/base-files/banner > package/base-files/files/etc/banner
 
 # make olddefconfig
 curl -sL $mirror/doc/patch/kernel-6.6/kernel/0003-include-kernel-defaults.mk.patch | patch -p1
