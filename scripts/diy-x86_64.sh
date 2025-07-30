@@ -364,7 +364,7 @@ git clone https://$github/destan19/OpenAppFilter package/new/OpenAppFilter
 git clone https://$gitea/luci-app-adguardhome package/new/luci-app-adguardhome
 
 # PowerOff 关机插件
-git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/new/luci-app-poweroff
+git clone https://github.com/WukongMaster/luci-app-poweroff.git package/new/luci-app-poweroff
 
 # luci-app-taskplan
 git clone https://github.com/sirpdboy/luci-app-taskplan package/new/luci-app-taskplan
