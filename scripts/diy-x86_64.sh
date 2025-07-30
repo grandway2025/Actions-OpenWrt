@@ -377,8 +377,9 @@ sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/lu
 git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # argon
+rm -rf feeds/luci/themes/luci-theme-argon
 git clone https://$github/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
-curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/x86_64/argon/bg1.jpg  > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+curl -s $mirror/Customize/x86_64/argon/bg1.jpg > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # argon-config
 git clone https://$github/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
