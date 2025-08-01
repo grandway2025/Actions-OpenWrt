@@ -18,6 +18,16 @@ export github="github.com"
 # 使用 O2 级别的优化
 sed -i 's/Os/O2/g' include/target.mk
 
+# 删除软件依赖
+rm -rf feeds/packages/net/{v2ray-geodata,open-app-filter,shadowsocksr-libev,shadowsocks-rust,shadowsocks-libev}
+rm -rf feeds/packages/net/{tcping,trojan,trojan-plus,tuic-client,v2ray-core,v2ray-plugin,xray-core,xray-plugin,sing-box}
+rm -rf feeds/packages/net/{chinadns-ng,hysteria,mosdns,lucky,ddns-go,v2dat,golang}
+
+# 删除软件包
+rm -rf feeds/luci/applications/{luci-app-daed,luci-app-dae,luci-app-homeproxy,luci-app-openclash}
+rm -rf feeds/luci/applications/{luci-app-passwall,luci-app-passwall2,luci-app-ssr-plus,luci-app-vssr}
+rm -rf feeds/luci/applications/{luci-app-appfilter,luci-app-ddns-go,luci-app-lucky,luci-app-mosdns,luci-app-alist,luci-app-openlist}
+
 # 移除 SNAPSHOT 标签
 sed -i 's,-SNAPSHOT,,g' include/version.mk
 sed -i 's,-SNAPSHOT,,g' package/base-files/image-config.in
@@ -332,8 +342,8 @@ rm -rf feeds/packages/net/aria2
 git clone https://$github/sbwml/feeds_packages_net_aria2 -b 22.03 feeds/packages/net/aria2
 
 # SSRP & Passwall
-rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
-git clone -b openwrt-24.10 https://git.kejizero.online/private/openwrt_helloworld package/new/helloworld
+rm -rf feeds/packages/net/{daed,xray-core,v2ray-core,v2ray-geodata,sing-box}
+git clone -b openwrt-24.10 https://zhao:zj3753813@git.kejizero.online/zhao/openwrt_helloworld package/new/helloworld
 
 # alist
 rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
