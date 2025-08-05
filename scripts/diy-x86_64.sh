@@ -18,16 +18,6 @@ export github="github.com"
 # 使用 O2 级别的优化
 sed -i 's/Os/O2/g' include/target.mk
 
-# 删除软件依赖
-rm -rf feeds/packages/net/{v2ray-geodata,open-app-filter,shadowsocksr-libev,shadowsocks-rust,shadowsocks-libev}
-rm -rf feeds/packages/net/{tcping,trojan,trojan-plus,tuic-client,v2ray-core,v2ray-plugin,xray-core,xray-plugin,sing-box}
-rm -rf feeds/packages/net/{chinadns-ng,hysteria,mosdns,lucky,ddns-go,v2dat,golang}
-
-# 删除软件包
-rm -rf feeds/luci/applications/{luci-app-daed,luci-app-dae,luci-app-homeproxy,luci-app-openclash}
-rm -rf feeds/luci/applications/{luci-app-passwall,luci-app-passwall2,luci-app-ssr-plus,luci-app-vssr}
-rm -rf feeds/luci/applications/{luci-app-appfilter,luci-app-ddns-go,luci-app-lucky,luci-app-mosdns,luci-app-alist,luci-app-openlist}
-
 # 移除 SNAPSHOT 标签
 sed -i 's,-SNAPSHOT,,g' include/version.mk
 sed -i 's,-SNAPSHOT,,g' package/base-files/image-config.in
@@ -44,8 +34,8 @@ sed -i 's/ubus_parallel_req 2/ubus_parallel_req 6/g' feeds/packages/net/nginx/fi
 sed -i '/ubus_parallel_req/a\        ubus_script_timeout 300;' feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
 
 # nginx - config
-curl -s $mirror/Customize/X86_64/nginx/luci.locations > feeds/packages/net/nginx/files-luci-support/luci.locations
-curl -s $mirror/Customize/X86_64/nginx/uci.conf.template > feeds/packages/net/nginx-util/files/uci.conf.template
+curl -s $mirror/Customize/nginx/luci.locations > feeds/packages/net/nginx/files-luci-support/luci.locations
+curl -s $mirror/Customize/nginx/uci.conf.template > feeds/packages/net/nginx-util/files/uci.conf.template
 
 # uwsgi - fix timeout
 sed -i '$a cgi-timeout = 600' feeds/packages/net/uwsgi/files-luci-support/luci-*.ini
@@ -63,13 +53,13 @@ sed -i 's/option timeout 30/option timeout 60/g' package/system/rpcd/files/rpcd.
 sed -i 's#20) \* 1000#60) \* 1000#g' feeds/luci/modules/luci-base/htdocs/luci-static/resources/rpc.js
 
 # 修改默认ip
-sed -i "s/192.168.1.1/$LAN/g" package/base-files/files/bin/config_generate
+sed -i "s/192.168.1.1/192.168.1.10/g" package/base-files/files/bin/config_generate
 
 # 修改名称
 # sed -i 's/OpenWrt/ZeroWrt/' package/base-files/files/bin/config_generate
 
 # banner
-# curl -s $mirror/Customize/x86_64/base-files/banner > package/base-files/files/etc/banner
+# curl -s $mirror/Customize/base-files/banner > package/base-files/files/etc/banner
 
 # make olddefconfig
 curl -sL $mirror/doc/patch/kernel-6.6/kernel/0003-include-kernel-defaults.mk.patch | patch -p1
@@ -140,7 +130,7 @@ popd
 
 # firewall4
 mkdir -p package/network/config/firewall4/patches
-curl -s $mirror/Customize/X86_64/firewall4/Makefile > package/network/config/firewall4/Makefile
+curl -s $mirror/Customize/firewall4/Makefile > package/network/config/firewall4/Makefile
 sed -i 's|$(PROJECT_GIT)/project|https://github.com/openwrt|g' package/network/config/firewall4/Makefile
 
 # fix ct status dnat
@@ -279,7 +269,7 @@ sed -i 's/3.openwrt.pool.ntp.org/time2.cloud.tencent.com/g' package/base-files/f
 # 加入作者信息
 sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-$(date +%Y%m%d)'/g"  package/base-files/files/etc/openwrt_release
 sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By grandway2025'/g" package/base-files/files/etc/openwrt_release
-sed -i "s|^OPENWRT_RELEASE=\".*\"|OPENWRT_RELEASE=\"OpenWrt定制版 @R$(date +%Y%m%d) \"|" package/base-files/files/usr/lib/os-release
+sed -i "s|^OPENWRT_RELEASE=\".*\"|OPENWRT_RELEASE=\"OpenWrt定制版 @R$(date +%Y%m%d) BY OPPEN321\"|" package/base-files/files/usr/lib/os-release
 
 # CURRENT_DATE
 sed -i "/BUILD_DATE/d" package/base-files/files/usr/lib/os-release
@@ -287,11 +277,11 @@ sed -i "/BUILD_ID/aBUILD_DATE=\"$CURRENT_DATE\"" package/base-files/files/usr/li
 
 # golang 1.25
 rm -rf feeds/packages/lang/golang
-git clone https://$github/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
+git clone https://$gitea/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # rust
 rm -rf feeds/packages/lang/rust
-git clone https://$github/grandway2025/packages_lang_rust -b 1.85.0 feeds/packages/lang/rust
+git clone https://$github/zhiern/packages_lang_rust -b 1.85.0 feeds/packages/lang/rust
 
 # luci-app-webdav
 git clone https://$github/sbwml/luci-app-webdav package/new/luci-app-webdav
@@ -309,13 +299,13 @@ sed -i 's/env conf_inc/env conf_inc enable/g' feeds/packages/net/frp/files/frpc.
 sed -i "s/'conf_inc:list(string)'/& \\\\/" feeds/packages/net/frp/files/frpc.init
 sed -i "/conf_inc:list/a\\\t\t\'enable:bool:0\'" feeds/packages/net/frp/files/frpc.init
 sed -i '/procd_open_instance/i\\t\[ "$enable" -ne 1 \] \&\& return 1\n' feeds/packages/net/frp/files/frpc.init
-curl -s $mirror/Customize/X86_64/frpc/001-luci-app-frpc-hide-token.patch | patch -p1
-curl -s $mirror/Customize/X86_64/frpc/002-luci-app-frpc-add-enable-flag.patch | patch -p1
+curl -s $mirror/Customize/frpc/001-luci-app-frpc-hide-token.patch | patch -p1
+curl -s $mirror/Customize/frpc/002-luci-app-frpc-add-enable-flag.patch | patch -p1
 
 # natmap
 sed -i 's/log_stdout:bool:1/log_stdout:bool:0/g;s/log_stderr:bool:1/log_stderr:bool:0/g' feeds/packages/net/natmap/files/natmap.init
 pushd feeds/luci
-    curl -s $mirror/Customize/X86_64/natmap/0001-luci-app-natmap-add-default-STUN-server-lists.patch | patch -p1
+    curl -s $mirror/Customize/natmap/0001-luci-app-natmap-add-default-STUN-server-lists.patch | patch -p1
 popd
 
 # samba4 - bump version
@@ -346,8 +336,8 @@ rm -rf feeds/packages/net/aria2
 git clone https://$github/sbwml/feeds_packages_net_aria2 -b 22.03 feeds/packages/net/aria2
 
 # SSRP & Passwall
-rm -rf feeds/packages/net/{daed,xray-core,v2ray-core,v2ray-geodata,sing-box}
-git clone -b openwrt-24.10 https://github.com/grandway2025/helloworld.git package/new/helloworld
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
+git clone -b openwrt-24.10 https://git.kejizero.online/private/openwrt_helloworld package/new/helloworld
 
 # alist
 rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
@@ -367,9 +357,7 @@ sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 git clone https://git.kejizero.online/zhao/luci-app-caddy package/new/caddy
 
 # Mosdns
-git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/new/mosdns
-cp -r package/new/mosdns/{luci-app-mosdns,mosdns,v2dat} package/new/helloworld
-rm -rf package/new/mosdns
+git clone https://$github/sbwml/luci-app-mosdns -b v5 package/new/mosdns
 
 # OpenAppFilter
 git clone https://$github/destan19/OpenAppFilter package/new/OpenAppFilter
@@ -391,9 +379,8 @@ sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/lu
 git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # argon
-rm -rf feeds/luci/themes/luci-theme-argon
 git clone https://$github/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
-curl -s $mirror/Customize/x86_64/argon/bg1.jpg > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+curl -s $mirror/Customize/argon/bg1.jpg > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # argon-config
 git clone https://$github/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
@@ -439,7 +426,7 @@ exit 0
 '> ./package/base-files/files/etc/rc.local
 
 # 默认设置
-git clone --depth=1 -b openwrt-24.10 https://$github/grandway2025/default-settings package/new/default-settings
+git clone --depth=1 -b openwrt-24.10 https://$github/zhiern/default-settings package/new/default-settings
 
 # distfeeds.conf
 mkdir -p files/etc/opkg
@@ -451,6 +438,25 @@ src/gz openwrt_routing https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.
 src/gz openwrt_telephony https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/telephony
 EOF
 
+# Vermagic
+# curl -s https://downloads.openwrt.org/releases/24.10.1/targets/x86/64/openwrt-24.10.1-x86-64.manifest \
+# | grep "^kernel -" \
+# | awk '{print $3}' \
+# | sed -n 's/.*~\([a-f0-9]\+\)-r[0-9]\+/\1/p' > vermagic
+# sed -i 's#grep '\''=\[ym\]'\'' \$(LINUX_DIR)/\.config\.set | LC_ALL=C sort | \$(MKHASH) md5 > \$(LINUX_DIR)/\.vermagic#cp \$(TOPDIR)/vermagic \$(LINUX_DIR)/.vermagic#g' include/kernel-defaults.mk
+
+# Toolchain Cache
+#if [ "$BUILD_FAST" = "y" ]; then
+#    TOOLCHAIN_URL=https://github.com/oppen321/openwrt_caches/releases/download/OpenWrt_Toolchain_Cache
+#    curl -L -k ${TOOLCHAIN_URL}/toolchain_gcc13_x86_64.tar.zst -o toolchain.tar.zst $CURL_BAR
+#    tar -I "zstd" -xf toolchain.tar.zst
+#    rm -f toolchain.tar.zst
+#    mkdir bin
+#    find ./staging_dir/ -name '*' -exec touch {} \; >/dev/null 2>&1
+#    find ./tmp/ -name '*' -exec touch {} \; >/dev/null 2>&1
+#fi
+
+# init openwrt config
 rm -rf tmp/*
      
 # install feeds
