@@ -275,12 +275,12 @@ sed -i "s|^OPENWRT_RELEASE=\".*\"|OPENWRT_RELEASE=\"OpenWrt定制版 @R$(date +%
 sed -i "/BUILD_DATE/d" package/base-files/files/usr/lib/os-release
 sed -i "/BUILD_ID/aBUILD_DATE=\"$CURRENT_DATE\"" package/base-files/files/usr/lib/os-release
 
-# golang 1.25
+# golang 1.24
 rm -rf feeds/packages/lang/golang
-git clone https://$gitea/packages_lang_golang -b 25.x feeds/packages/lang/golang
+git clone https://$gitea/packages_lang_golang -b 24.x feeds/packages/lang/golang
 
 # rust
-rm -rf feeds/packages/lang/rust && rm -rf package/feeds/packages/rust
+rm -rf feeds/packages/lang/rust
 git clone https://$github/zhiern/packages_lang_rust -b 1.85.0 feeds/packages/lang/rust
 
 # luci-app-webdav
