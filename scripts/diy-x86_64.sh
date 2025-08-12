@@ -357,7 +357,7 @@ sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 git clone https://git.kejizero.online/zhao/luci-app-caddy package/new/caddy
 
 # Mosdns
-# git clone https://$github/sbwml/luci-app-mosdns -b v5 package/new/mosdns
+git clone https://$github/sbwml/luci-app-mosdns -b v5 package/new/mosdns
 
 # OpenAppFilter
 git clone https://$github/destan19/OpenAppFilter package/new/OpenAppFilter
@@ -438,11 +438,9 @@ src/gz openwrt_routing https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.
 src/gz openwrt_telephony https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/telephony
 EOF
 
-fix_rust_compile_error() {
-    if [ -f "$OPENWRT_PATH/feeds/packages/lang/rust/Makefile" ]; then
-        sed -i 's/download-ci-llvm=true/download-ci-llvm=false/g' "$OPENWRT_PATH/feeds/packages/lang/rust/Makefile"
-    fi
-}
+# fix_rust_compile_error
+# Set Rust build arg llvm.download-ci-llvm to false.
+sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
 
 # Vermagic
 # curl -s https://downloads.openwrt.org/releases/24.10.1/targets/x86/64/openwrt-24.10.1-x86-64.manifest \
