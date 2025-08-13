@@ -381,11 +381,11 @@ git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 # argon
 # git clone https://$github/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
 # curl -s $mirror/Customize/argon/bg1.jpg > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
-git clone https://$github/zhiern/luci-theme-argon.git package/new/luci-theme-argon
+git clone https://$github/grandway2025/luci-theme-argon.git package/new/luci-theme-argon
 
 # argon-config
 # git clone https://$github/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
-git clone https://$github/zhiern/luci-app-argon-config.git package/new/luci-app-argon-config
+git clone https://$github/grandway2025/luci-app-argon-config.git package/new/luci-app-argon-config
 sed -i "s/bing/none/g" package/new/luci-app-argon-config/root/etc/config/argon
 
 # 主题设置
@@ -428,16 +428,16 @@ exit 0
 '> ./package/base-files/files/etc/rc.local
 
 # 默认设置
-cp -f $GITHUB_WORKSPACE/scripts/zzz-default-settings package/new/default-settings
+cp -f $GITHUB_WORKSPACE/scripts/zzz-default-settings package/new/default-settings/files/zzz-default-settings
 
 # distfeeds.conf
 mkdir -p files/etc/opkg
 cat > files/etc/opkg/distfeeds.conf <<EOF
-src/gz openwrt_base https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/base
-src/gz openwrt_luci https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/luci
-src/gz openwrt_packages https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/packages
-src/gz openwrt_routing https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/routing
-src/gz openwrt_telephony https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.1/packages/x86_64/telephony
+src/gz openwrt_base https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.2/packages/x86_64/base
+src/gz openwrt_luci https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.2/packages/x86_64/luci
+src/gz openwrt_packages https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.2/packages/x86_64/packages
+src/gz openwrt_routing https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.2/packages/x86_64/routing
+src/gz openwrt_telephony https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/24.10.2/packages/x86_64/telephony
 EOF
 
 # fix_rust_compile_error &&S et Rust build arg llvm.download-ci-llvm to false.
