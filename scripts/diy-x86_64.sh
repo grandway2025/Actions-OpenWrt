@@ -428,7 +428,7 @@ exit 0
 '> ./package/base-files/files/etc/rc.local
 
 # 默认设置
-git clone --depth=1 -b openwrt-24.10 https://$github/zhiern/default-settings package/new/default-settings
+cp -f $GITHUB_WORKSPACE/scripts/zzz-default-settings package/new/default-settings
 
 # distfeeds.conf
 mkdir -p files/etc/opkg
