@@ -379,7 +379,7 @@ sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/lu
 git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # luci-app-filetransfer
-rm -rf feeds/luci/applications/luci-app-alist
+rm -rf feeds/luci/applications/luci-app-filetransfer
 git clone https://$github/DustReliant/luci-app-filetransfer.git package/new/luci-app-filetransfer
 
 # argon
