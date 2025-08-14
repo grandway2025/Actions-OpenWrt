@@ -337,8 +337,8 @@ rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 git clone -b openwrt-24.10 https://github.com/grandway2025/helloworld package/new/helloworld
 
 # alist
-rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
-git clone https://$github/sbwml/openwrt-alist package/new/alist
+# rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
+# git clone https://$github/sbwml/luci-app-alist package/new/alist
 
 # openlist
 git clone https://$github/sbwml/luci-app-openlist package/new/openlist
