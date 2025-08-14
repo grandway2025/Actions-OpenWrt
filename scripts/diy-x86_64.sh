@@ -214,10 +214,10 @@ curl -s $mirror/doc/patch/kernel-6.6/igc-fix/996-intel-igc-i225-i226-disable-eee
 rm -rf feeds/luci/applications/luci-app-dockerman
 git clone https://$gitea/luci-app-dockerman -b openwrt-24.10 feeds/luci/applications/luci-app-dockerman
     rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
-    git clone https://$gitea/packages_utils_docker feeds/packages/utils/docker
-    git clone https://$gitea/packages_utils_dockerd feeds/packages/utils/dockerd
-    git clone https://$gitea/packages_utils_containerd feeds/packages/utils/containerd
-    git clone https://$gitea/packages_utils_runc feeds/packages/utils/runc
+    git clone https://$github/sbwml/packages_utils_docker feeds/packages/utils/docker
+    git clone https://$github/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd
+    git clone https://$github/sbwml/packages_utils_containerd feeds/packages/utils/containerd
+    git clone https://$github/sbwml/packages_utils_runc feeds/packages/utils/runc
 
 # TTYD
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
@@ -277,11 +277,7 @@ sed -i "/BUILD_ID/aBUILD_DATE=\"$CURRENT_DATE\"" package/base-files/files/usr/li
 
 # golang 1.25
 rm -rf feeds/packages/lang/golang
-git clone https://$gitea/packages_lang_golang -b 25.x feeds/packages/lang/golang
-
-# rust
-# rm -rf feeds/packages/lang/rust
-# git clone https://$github/zhiern/packages_lang_rust -b 1.85.0 feeds/packages/lang/rust
+git clone https://$github/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # luci-app-webdav
 git clone https://$github/sbwml/luci-app-webdav package/new/luci-app-webdav
