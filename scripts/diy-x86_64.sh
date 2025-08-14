@@ -366,7 +366,7 @@ git clone https://$github/destan19/OpenAppFilter package/new/OpenAppFilter
 git clone https://$gitea/luci-app-adguardhome package/new/luci-app-adguardhome
 
 # PowerOff 关机插件
-git clone https://github.com/WukongMaster/luci-app-poweroff.git package/new/luci-app-poweroff
+git clone https://github.com/sirpdboy/luci-app-poweroffdevice package/new/luci-app-poweroffdevice
 
 # luci-app-taskplan
 git clone https://github.com/sirpdboy/luci-app-taskplan package/new/luci-app-taskplan
@@ -380,7 +380,7 @@ git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # luci-app-filetransfer
 rm -rf feeds/luci/applications/luci-app-filetransfer
-git clone https://$github/DustReliant/luci-app-filetransfer.git package/new/luci-app-filetransfer
+git clone https://$github/QC3284/luci-app-filetransfer.git package/new/luci-app-filetransfer
 
 # argon
 # git clone https://$github/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
@@ -432,7 +432,7 @@ exit 0
 '> ./package/base-files/files/etc/rc.local
 
 # 默认设置
-cp -f $GITHUB_WORKSPACE/scripts/zzz-default-settings package/new/default-settings/files/zzz-default-settings
+cp -f $mirror/scripts/zzz-default-settings package/new/default-settings/files/zzz-default-settings
 
 # distfeeds.conf
 mkdir -p files/etc/opkg
