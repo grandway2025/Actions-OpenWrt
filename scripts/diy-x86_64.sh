@@ -212,7 +212,8 @@ curl -s $mirror/doc/patch/kernel-6.6/igc-fix/996-intel-igc-i225-i226-disable-eee
 
 # Docker
 rm -rf feeds/luci/applications/luci-app-dockerman
-git clone https://$gitea/luci-app-dockerman -b openwrt-24.10 feeds/luci/applications/luci-app-dockerman
+git clone https://github.com/sirpdboy/luci-app-dockerman.git package/new/dockerman
+mv -n package/new/dockerman/luci-app-dockerman feeds/luci/applications && rm -rf package/new/dockerman
     rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
     git clone https://$github/sbwml/packages_utils_docker feeds/packages/utils/docker
     git clone https://$github/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd
