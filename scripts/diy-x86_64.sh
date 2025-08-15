@@ -437,7 +437,7 @@ exit 0
 '> ./package/base-files/files/etc/rc.local
 
 # 默认设置
-cp -f $mirror/scripts/zzz-default-settings package/new/default-settings/files/zzz-default-settings
+git clone https://$github/grandway2025/default-settings package/new/default-settings -b openwrt-24.10
 
 # distfeeds.conf
 mkdir -p files/etc/opkg
