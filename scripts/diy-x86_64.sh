@@ -360,9 +360,7 @@ git clone https://$github/sbwml/luci-app-mosdns -b v5 package/new/mosdns
 git clone https://$github/destan19/OpenAppFilter package/new/OpenAppFilter
 
 # adguardhome
-# git clone https://$gitea/luci-app-adguardhome package/new/luci-app-adguardhome
-git clone https://$github/sirpdboy/luci-app-adguardhome.git package/new/adguardhome
-mv -n package/new/adguardhome/luci-app-adguardhome package/new/luci-app-adguardhome && rm -rf package/new/adguardhome
+git clone https://$gitea/luci-app-adguardhome package/new/luci-app-adguardhome
 
 # PowerOff 关机插件
 git clone https://github.com/sirpdboy/luci-app-poweroffdevice package/new/poweroff
