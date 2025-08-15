@@ -378,7 +378,7 @@ git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # luci-app-filetransfer
 rm -rf feeds/luci/applications/luci-app-filetransfer
-git clone https://$github/QC3284/luci-app-filetransfer.git package/new/luci-app-filetransfer
+git clone https://$github/grandway2025/luci-app-filetransfer.git package/new/luci-app-filetransfer
 
 # argon
 git clone https://$github/grandway2025/luci-theme-argon.git package/new/luci-theme-argon
