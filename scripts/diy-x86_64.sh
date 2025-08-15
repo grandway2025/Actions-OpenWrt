@@ -381,12 +381,9 @@ rm -rf feeds/luci/applications/luci-app-filetransfer
 git clone https://$github/QC3284/luci-app-filetransfer.git package/new/luci-app-filetransfer
 
 # argon
-# git clone https://$github/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
-# curl -s $mirror/Customize/argon/bg1.jpg > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 git clone https://$github/grandway2025/luci-theme-argon.git package/new/luci-theme-argon
 
 # argon-config
-# git clone https://$github/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
 git clone https://$github/grandway2025/luci-app-argon-config.git package/new/luci-app-argon-config
 sed -i "s/bing/none/g" package/new/luci-app-argon-config/root/etc/config/argon
 
@@ -397,7 +394,10 @@ sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_b
 # sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a href="https://github.com/grandway2025/Actions-OpenWrt" target="_blank">OpenWRT</a> |g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # luci-app-kucat-config
-git clone https://$github/sirpdboy/luci-app-kucat-config.git package/new/luci-app-kucat-config
+# git clone https://$github/sirpdboy/luci-app-kucat-config.git package/new/luci-app-kucat-config
+
+# luci-app-advancedplus
+git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus
 
 # luci-theme-kucat
 git clone https://$github/sirpdboy/luci-theme-kucat.git package/new/kucat
