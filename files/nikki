@@ -2,14 +2,12 @@
 config status 'status'
 
 config config 'config'
-	option enabled '1'
+	option enabled '0'
 	option start_delay '5'
 	option scheduled_restart '0'
 	option cron_expression '0 3 * * *'
 	option test_profile '0'
 	option fast_reload '1'
-	option profile 'file:clash-2.yaml'
-	option core_only '0'
 
 config proxy 'proxy'
 	option transparent_proxy '1'
@@ -23,7 +21,7 @@ config proxy 'proxy'
 	option router_proxy '1'
 	option lan_proxy '1'
 	option access_control_mode 'all'
-	option bypass_china_mainland_ip '1'
+	option bypass_china_mainland_ip '0'
 	option proxy_tcp_dport '21 22 80 110 143 194 443 465 853 993 995 8080 8443'
 	option proxy_udp_dport '123 443 8443'
 	list bypass_user 'ftp'
@@ -40,10 +38,7 @@ config proxy 'proxy'
 	list bypass_group 'dnsmasq'
 	list bypass_group 'logd'
 	list bypass_group 'ubus'
-	option enabled '1'
-	option tcp_mode 'redirect'
-	option udp_mode 'tproxy'
-	list lan_inbound_interface 'lan'
+	list bypass_dscp '4'
 
 config mixin 'mixin'
 	option log_level 'warning'
@@ -59,10 +54,10 @@ config mixin 'mixin'
 	option selection_cache '1'
 	option allow_lan '1'
 	option http_port '7890'
-	option socks_port '1080'
+	option socks_port '7891'
 	option mixed_port '7893'
-	option redir_port '7891'
-	option tproxy_port '7892'
+	option redir_port '7894'
+	option tproxy_port '7895'
 	option authentication '0'
 	option tun_device 'nikki'
 	option tun_stack 'gvisor'
@@ -106,17 +101,22 @@ config mixin 'mixin'
 	option fake_ip_filter_mode 'blacklist'
 	option api_secret '123456'
 	option dns_hosts '1'
-	option global_client_fingerprint '不修改'
 	list fake_ip_filters '+.lan'
 	list fake_ip_filters '+.local'
 	list fake_ip_filters 'geosite:cn'
+	list fake_ip_filters '+.quickcht3.club'
+	list fake_ip_filters '+.sevenka.top'
+	list fake_ip_filters '+.oneyyds.online'
+	list fake_ip_filters '+.sssyun.xyz'
+	list fake_ip_filters '+.xiaoniuyun.cc'
+	list fake_ip_filters '+.huawei-cloud.shop'
+	list fake_ip_filters '+.472361.xyz'
 
 config env 'env'
 	option disable_safe_path_check '0'
 	option disable_loopback_detector '0'
 	option disable_quic_go_gso '0'
 	option disable_quic_go_ecn '0'
-	option skip_system_ipv6_check '0'
 
 config authentication
 	option enabled '1'
@@ -142,10 +142,10 @@ config nameserver
 	list nameserver 'https://doh.pub/dns-query'
 
 config nameserver
-	option enabled '0'
+	option enabled '1'
 	option type 'nameserver'
-	list nameserver '202.96.128.86'
-	list nameserver '202.96.134.133'
+	list nameserver '223.5.5.5'
+	list nameserver '119.29.29.29'
 
 config nameserver
 	option enabled '0'
@@ -191,9 +191,8 @@ config editor 'editor'
 config log 'log'
 
 config hosts
-	option enabled '1'
-	option domain_name '*.grandway.top'
-	list ip '192.168.1.254'
+	option enabled '0'
+	option domain_name '[反代理域名：*.abc.com]'
 
 config nameserver_policy
 	option enabled '0'
@@ -201,18 +200,44 @@ config nameserver_policy
 	list nameserver '223.5.5.5'
 	list nameserver '119.29.29.29'
 
-config nameserver
-	option enabled '1'
-	option type 'nameserver'
-	list nameserver '192.168.1.254:54'
+config subscription
+	option name '聚合机场'
+	option url '1'
+	option user_agent 'clash.meta'
+	option prefer 'remote'
 
-config router_access_control
-	option enabled '1'
-	option dns '0'
-	option proxy '1'
+config subscription
+	option name '火烧云'
+	option user_agent 'clash.meta'
+	option prefer 'remote'
+	option url '1'
 
-config lan_access_control
-	option enabled '1'
-	option dns '0'
-	option proxy '1'
+config subscription
+	option name '小牛'
+	option url '1'
+	option user_agent 'clash.meta'
+	option prefer 'remote'
 
+config subscription
+	option name '硅谷云'
+	option user_agent 'clash.meta'
+	option prefer 'remote'
+	option url '1'
+
+config subscription
+	option name '猫耳'
+	option url '1'
+	option user_agent 'clash.meta'
+	option prefer 'remote'
+
+config subscription
+	option name '快猫'
+	option url '1'
+	option user_agent 'clash.meta'
+	option prefer 'remote'
+
+config subscription
+	option name '牛逼'
+	option url '1'
+	option user_agent 'clash.meta'
+	option prefer 'remote'
