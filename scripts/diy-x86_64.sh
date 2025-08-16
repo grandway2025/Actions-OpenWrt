@@ -377,8 +377,8 @@ sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/lu
 git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # luci-app-filetransfer
-rm -rf feeds/luci/applications/luci-app-filetransfer
-git clone https://$github/grandway2025/luci-app-filetransfer.git package/new/luci-app-filetransfer
+# rm -rf feeds/luci/applications/luci-app-filetransfer
+# git clone https://$github/grandway2025/luci-app-filetransfer.git package/new/luci-app-filetransfer
 
 # argon
 git clone https://$github/grandway2025/luci-theme-argon.git package/new/luci-theme-argon
@@ -388,9 +388,9 @@ git clone https://$github/grandway2025/luci-app-argon-config.git package/new/luc
 sed -i "s/bing/none/g" package/new/luci-app-argon-config/root/etc/config/argon
 
 # 主题设置
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+# sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 # sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a href="https://github.com/grandway2025/Actions-OpenWrt" target="_blank">OpenWRT</a> |g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+# sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 # sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">ArgonTheme <%# vPKG_VERSION %></a>|<a href="https://github.com/grandway2025/Actions-OpenWrt" target="_blank">OpenWRT</a> |g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # luci-app-kucat-config
