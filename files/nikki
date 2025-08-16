@@ -8,6 +8,8 @@ config config 'config'
 	option cron_expression '0 3 * * *'
 	option test_profile '0'
 	option fast_reload '1'
+	option profile 'file:clash.yaml'
+	option core_only '0'
 
 config proxy 'proxy'
 	option transparent_proxy '1'
@@ -21,7 +23,7 @@ config proxy 'proxy'
 	option router_proxy '1'
 	option lan_proxy '1'
 	option access_control_mode 'all'
-	option bypass_china_mainland_ip '0'
+	option bypass_china_mainland_ip '1'
 	option proxy_tcp_dport '21 22 80 110 143 194 443 465 853 993 995 8080 8443'
 	option proxy_udp_dport '123 443 8443'
 	list bypass_user 'ftp'
@@ -38,7 +40,10 @@ config proxy 'proxy'
 	list bypass_group 'dnsmasq'
 	list bypass_group 'logd'
 	list bypass_group 'ubus'
-	list bypass_dscp '4'
+	option enabled '1'
+	option tcp_mode 'redirect'
+	option udp_mode 'tproxy'
+	list lan_inbound_interface 'lan'
 
 config mixin 'mixin'
 	option log_level 'warning'
@@ -54,7 +59,7 @@ config mixin 'mixin'
 	option selection_cache '1'
 	option allow_lan '1'
 	option http_port '7890'
-	option socks_port '7891'
+	option socks_port '1080'
 	option mixed_port '7893'
 	option redir_port '7894'
 	option tproxy_port '7895'
@@ -117,6 +122,7 @@ config env 'env'
 	option disable_loopback_detector '0'
 	option disable_quic_go_gso '0'
 	option disable_quic_go_ecn '0'
+	option skip_system_ipv6_check '0'
 
 config authentication
 	option enabled '1'
@@ -144,8 +150,8 @@ config nameserver
 config nameserver
 	option enabled '1'
 	option type 'nameserver'
-	list nameserver '223.5.5.5'
-	list nameserver '119.29.29.29'
+	list nameserver '202.96.128.86'
+	list nameserver '202.96.134.133'
 
 config nameserver
 	option enabled '0'
@@ -191,8 +197,9 @@ config editor 'editor'
 config log 'log'
 
 config hosts
-	option enabled '0'
-	option domain_name '[反代理域名：*.abc.com]'
+	option enabled '1'
+	option domain_name '*.grandway.top'
+	list ip '192.168.1.10'
 
 config nameserver_policy
 	option enabled '0'
@@ -200,44 +207,18 @@ config nameserver_policy
 	list nameserver '223.5.5.5'
 	list nameserver '119.29.29.29'
 
-config subscription
-	option name '聚合机场'
-	option url '1'
-	option user_agent 'clash.meta'
-	option prefer 'remote'
+config nameserver
+	option enabled '0'
+	option type 'nameserver'
+	list nameserver '192.168.1.10:54'
 
-config subscription
-	option name '火烧云'
-	option user_agent 'clash.meta'
-	option prefer 'remote'
-	option url '1'
+config router_access_control
+	option enabled '1'
+	option dns '0'
+	option proxy '1'
 
-config subscription
-	option name '小牛'
-	option url '1'
-	option user_agent 'clash.meta'
-	option prefer 'remote'
+config lan_access_control
+	option enabled '1'
+	option dns '0'
+	option proxy '1'
 
-config subscription
-	option name '硅谷云'
-	option user_agent 'clash.meta'
-	option prefer 'remote'
-	option url '1'
-
-config subscription
-	option name '猫耳'
-	option url '1'
-	option user_agent 'clash.meta'
-	option prefer 'remote'
-
-config subscription
-	option name '快猫'
-	option url '1'
-	option user_agent 'clash.meta'
-	option prefer 'remote'
-
-config subscription
-	option name '牛逼'
-	option url '1'
-	option user_agent 'clash.meta'
-	option prefer 'remote'
