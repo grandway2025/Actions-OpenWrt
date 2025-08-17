@@ -406,8 +406,10 @@ mv -n package/new/kucat/luci-theme-kucat package/new/luci-theme-kucat && rm -rf 
 # lucky
 git clone https://$github/gdy666/luci-app-lucky.git package/new/lucky
 
-# pkgs
-git clone https://$gitea/openwrt-package package/new/openwrt-package
+# custom packages pkgs
+rm -rf feeds/packages/utils/coremark
+git clone https://$github/sbwml/openwrt_pkgs package/new/custom --depth=1
+rm -rf package/new/custom/luci-app-adguardhome
 
 # autocore-arm
 git clone https://$gitea/autocore-arm package/new/autocore-arm
