@@ -7,28 +7,18 @@ config dns_servers
 	option port '54'
 
 config dns_servers
-	option enabled '0'
 	option group 'nameserver'
 	option type 'udp'
-	option ip '202.96.128.86'
-	option interface 'Disable'
-	option direct_nameserver '0'
-	option node_resolve '0'
-	option disable_ipv4 '0'
+	option ip '2202.96.128.86'
+	option enabled '0'
 	option disable_ipv6 '0'
-	option specific_group 'Disable'
 
 config dns_servers
-	option enabled '0'
 	option group 'nameserver'
 	option type 'udp'
 	option ip '202.96.134.133'
-	option interface 'Disable'
-	option direct_nameserver '0'
-	option node_resolve '0'
-	option disable_ipv4 '0'
+	option enabled '0'
 	option disable_ipv6 '0'
-	option specific_group 'Disable'
 
 config dns_servers
 	option group 'nameserver'
@@ -44,11 +34,6 @@ config dns_servers
 	option enabled '0'
 	option disable_ipv6 '0'
 	option port '5335'
-	option interface 'Disable'
-	option direct_nameserver '0'
-	option node_resolve '0'
-	option disable_ipv4 '0'
-	option specific_group 'Disable'
 
 config dns_servers
 	option group 'nameserver'
