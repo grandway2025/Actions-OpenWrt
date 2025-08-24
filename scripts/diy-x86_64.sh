@@ -283,6 +283,9 @@ git clone https://$github/sbwml/packages_lang_golang -b 25.x feeds/packages/lang
 # luci-app-webdav
 git clone https://$github/sbwml/luci-app-webdav package/new/luci-app-webdav
 
+# luci-app-quickfile
+git clone https://$github/sbwml/luci-app-quickfile package/new/quickfile
+
 # ddns - fix boot
 sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
 
@@ -341,7 +344,7 @@ git clone -b openwrt-24.10 https://github.com/grandway2025/helloworld package/ne
 # git clone https://$github/sbwml/luci-app-alist package/new/alist
 
 # openlist
-git clone https://$github/sbwml/luci-app-openlist package/new/openlist
+git clone https://$github/sbwml/luci-app-openlist2 package/new/openlist --depth=1
 
 # luci-app-sqm
 rm -rf feeds/luci/applications/luci-app-sqm
