@@ -70,29 +70,29 @@ cp -r package/new/mosdns/{luci-app-mosdns,mosdns,v2dat} package/new/helloworld
 rm -rf package/new/mosdns
 
 # OpenAppFilter
-git clone https://github.com/destan19/OpenAppFilter package/new/OpenAppFilter
+git clone https://github.com/destan19/OpenAppFilter package/new/OpenAppFilter --depth=1
 
 # luci-app-taskplan
-git clone https://github.com/sirpdboy/luci-app-taskplan package/new/luci-app-taskplan
+git clone https://github.com/sirpdboy/luci-app-taskplan package/new/luci-app-taskplan --depth=1
 
 # luci-app-webdav
-git clone -b openwrt-24.10 https://github.com/sbwml/luci-app-webdav.git package/new/luci-app-webdav
+git clone -b openwrt-24.10 https://github.com/sbwml/luci-app-webdav.git package/new/luci-app-webdav --depth=1
 
 # luci-app-quickfile
-# git clone https://$github/sbwml/luci-app-quickfile package/new/quickfile
+git clone https://$github/sbwml/luci-app-quickfile package/new/quickfile --depth=1
 
 # openlist
 rm -rf feeds/luci/applications/luci-app-openlist
 git clone https://$github/sbwml/luci-app-openlist2 package/new/openlist --depth=1
 
 # socat
-git clone https://github.com/zhiern/luci-app-socat package/new/luci-app-socat
+git clone https://github.com/zhiern/luci-app-socat package/new/luci-app-socat --depth=1
 
 # luci-app-advancedplus
-# git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus
+# git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus --depth=1
 
 # adguardhome
-git clone https://git.kejizero.online/zhao/luci-app-adguardhome package/new/luci-app-adguardhome
+git clone https://git.kejizero.online/zhao/luci-app-adguardhome package/new/luci-app-adguardhome --depth=1
 mkdir -p files/usr/bin
 AGH_CORE=$(curl -sL https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | grep /AdGuardHome_linux_arm64 | awk -F '"' '{print $4}')
 wget -qO- $AGH_CORE | tar xOvz > files/usr/bin/AdGuardHome
@@ -110,17 +110,17 @@ chmod +x files/etc/openclash/core/clash*
 
 # Docker
 rm -rf feeds/luci/applications/luci-app-dockerman
-git clone https://github.com/sirpdboy/luci-app-dockerman.git package/new/dockerman
+git clone https://github.com/sirpdboy/luci-app-dockerman.git package/new/dockerman --depth=1
 mv -n package/new/dockerman/luci-app-dockerman feeds/luci/applications && rm -rf package/new/dockerman
     rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
-    git clone https:///github.com/sbwml/packages_utils_docker feeds/packages/utils/docker
-    git clone https:///github.com/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd
-    git clone https:///github.com/sbwml/packages_utils_containerd feeds/packages/utils/containerd
-    git clone https:///github.com/sbwml/packages_utils_runc feeds/packages/utils/runc
+    git clone https:///github.com/sbwml/packages_utils_docker feeds/packages/utils/docker --depth=1
+    git clone https:///github.com/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd --depth=1
+    git clone https:///github.com/sbwml/packages_utils_containerd feeds/packages/utils/containerd --depth=1
+    git clone https:///github.com/sbwml/packages_utils_runc feeds/packages/utils/runc --depth=1
 
 # default-settings 
 rm -rf package/emortal/default-settings
-git clone -b mediatek https://github.com/grandway2025/default-settings package/new/default-settings
+git clone -b mediatek https://github.com/grandway2025/default-settings package/new/default-settings --depth=1
 
 # 更新feeds 
 ./scripts/feeds update -a && ./scripts/feeds install -a
