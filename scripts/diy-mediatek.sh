@@ -79,7 +79,7 @@ git clone https://github.com/sirpdboy/luci-app-taskplan package/new/luci-app-tas
 git clone -b openwrt-24.10 https://github.com/sbwml/luci-app-webdav.git package/new/luci-app-webdav
 
 # luci-app-quickfile
-git clone https://$github/sbwml/luci-app-quickfile package/new/quickfile
+# git clone https://$github/sbwml/luci-app-quickfile package/new/quickfile
 
 # openlist
 rm -rf feeds/luci/applications/luci-app-openlist
@@ -88,15 +88,8 @@ git clone https://$github/sbwml/luci-app-openlist2 package/new/openlist --depth=
 # socat
 git clone https://github.com/zhiern/luci-app-socat package/new/luci-app-socat
 
-# PowerOff 关机插件
-git clone https://github.com/sirpdboy/luci-app-poweroffdevice package/new/poweroff
-mv -n package/new/poweroff/luci-app-poweroffdevice package/new/luci-app-poweroffdevice && rm -rf package/new/poweroff
-
 # luci-app-advancedplus
-git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus
-
-# mentohust
-git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
+# git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus
 
 # adguardhome
 git clone https://git.kejizero.online/zhao/luci-app-adguardhome package/new/luci-app-adguardhome
