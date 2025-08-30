@@ -93,7 +93,7 @@ git clone https://github.com/sirpdboy/luci-app-poweroffdevice package/new/powero
 mv -n package/new/poweroff/luci-app-poweroffdevice package/new/luci-app-poweroffdevice && rm -rf package/new/poweroff
 
 # luci-app-advancedplus
-# git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus
+git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus
 
 # adguardhome
 git clone https://git.kejizero.online/zhao/luci-app-adguardhome package/new/luci-app-adguardhome
@@ -114,12 +114,13 @@ chmod +x files/etc/openclash/core/clash*
 
 # Docker
 rm -rf feeds/luci/applications/luci-app-dockerman
-git clone https://git.kejizero.online/zhao/luci-app-dockerman -b openwrt-24.10 feeds/luci/applications/luci-app-dockerman
-rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
-git clone https://git.kejizero.online/zhao/packages_utils_docker feeds/packages/utils/docker
-git clone https://git.kejizero.online/zhao/packages_utils_dockerd feeds/packages/utils/dockerd
-git clone https://git.kejizero.online/zhao/packages_utils_containerd feeds/packages/utils/containerd
-git clone https://git.kejizero.online/zhao/packages_utils_runc feeds/packages/utils/runc
+git clone https://github.com/sirpdboy/luci-app-dockerman.git package/new/dockerman
+mv -n package/new/dockerman/luci-app-dockerman feeds/luci/applications && rm -rf package/new/dockerman
+    rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
+    git clone https://$github/sbwml/packages_utils_docker feeds/packages/utils/docker
+    git clone https://$github/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd
+    git clone https://$github/sbwml/packages_utils_containerd feeds/packages/utils/containerd
+    git clone https://$github/sbwml/packages_utils_runc feeds/packages/utils/runc
 
 # default-settings 
 rm -rf package/emortal/default-settings
