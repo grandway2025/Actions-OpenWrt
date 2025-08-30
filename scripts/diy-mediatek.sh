@@ -28,7 +28,6 @@ sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-$(date +%Y%m%d)
 sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=' By grandway2025'/g" package/base-files/files/etc/openwrt_release
 sed -i "s|^OPENWRT_RELEASE=\".*\"|OPENWRT_RELEASE=\"OpenWrt定制版 \"|" package/base-files/files/usr/lib/os-release
 
-# argon
 rm -rf feeds/luci/themes/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/new/luci-theme-argon
 curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/argon/bg1.jpg  > package/new/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
@@ -38,24 +37,12 @@ curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Cust
 curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/argon/cascade.css > package/new/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
 
 # argon-config
-rm -rf feeds/luci/applications/luci-app-argon-config
-git clone https://github.com/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
+git clone https://$github/grandway2025/luci-app-argon-config.git package/new/luci-app-argon-config
 sed -i "s/bing/none/g" package/new/luci-app-argon-config/root/etc/config/argon
 
-# kucat
-git clone https://github.com/sirpdboy/luci-theme-kucat package/new/kucat
-# curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/bg1.jpg > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/img/bg1.jpg
-curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.ttf > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.ttf
-curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.woff > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.woff
-curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/jnaiconfont.woff2 > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/fonts/jnaiconfont.woff2
-curl -s https://raw.githubusercontent.com/grandway2025/Actions-OpenWrt/main/Customize/Mediatek/kucat/style.css > package/new/kucat/luci-theme-kucat/htdocs/luci-static/kucat/css/style.css
-
-# luci-app-kucat-config
-git clone https://github.com/sirpdboy/luci-app-kucat-config package/new/luci-app-kucat-config
-
 # 主题设置
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by <%= ver.luciname %> (<%= ver.luciversion %>)</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by {{ version.luciname }} ({{ version.luciversion }})</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/ucode/template/themes/argon/footer.ut
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci" target="_blank">Powered by {{ version.luciname }} ({{ version.luciversion }})</a>|<a class="luci-link" href="https://github.com/grandway2025" target="_blank">OpenWrt定制版</a>|g' package/new/luci-theme-argon/ucode/template/themes/argon/footer_login.ut
 
 ##WiFi
 # sed -i "s/MT7986_AX6000_2.4G/OpenWrt-2.4G/g" package/mtk/drivers/wifi-profile/files/mt7986/mt7986-ax6000.dbdc.b0.dat
@@ -71,8 +58,8 @@ rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # SSRP & Passwall
-rm -rf feeds/packages/net/{daed,xray-core,v2ray-core,v2ray-geodata,sing-box}
-git clone -b openwrt-24.10 https://zhao:zj3753813@git.kejizero.online/zhao/openwrt_helloworld package/new/helloworld
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
+git clone -b openwrt-24.10 https://github.com/grandway2025/helloworld package/new/helloworld
 
 # lucky
 git clone https://github.com/gdy666/luci-app-lucky.git package/new/lucky
@@ -91,12 +78,22 @@ git clone https://github.com/sirpdboy/luci-app-taskplan package/new/luci-app-tas
 # luci-app-webdav
 git clone -b openwrt-24.10 https://github.com/sbwml/luci-app-webdav.git package/new/luci-app-webdav
 
+# luci-app-quickfile
+git clone https://$github/sbwml/luci-app-quickfile package/new/quickfile
+
 # openlist
 rm -rf feeds/luci/applications/luci-app-openlist
-git clone https://github.com//sbwml/luci-app-openlist package/new/openlist
+git clone https://$github/sbwml/luci-app-openlist2 package/new/openlist --depth=1
 
 # socat
 git clone https://github.com/zhiern/luci-app-socat package/new/luci-app-socat
+
+# PowerOff 关机插件
+git clone https://github.com/sirpdboy/luci-app-poweroffdevice package/new/poweroff
+mv -n package/new/poweroff/luci-app-poweroffdevice package/new/luci-app-poweroffdevice && rm -rf package/new/poweroff
+
+# luci-app-advancedplus
+# git clone https://$github/sirpdboy/luci-app-advancedplus.git package/new/luci-app-advancedplus
 
 # adguardhome
 git clone https://git.kejizero.online/zhao/luci-app-adguardhome package/new/luci-app-adguardhome
