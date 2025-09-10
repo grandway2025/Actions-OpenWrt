@@ -36,7 +36,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 420  # 设置为 7 小时
 
     steps: 
     - name: Checkout
@@ -152,6 +151,7 @@ jobs:
         
     - name: Compile Firmware
       id: compile
+      timeout-minutes: 420
       run: |
         cd $OPENWRT_PATH
         echo -e "$(nproc) thread compile"
