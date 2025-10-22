@@ -95,12 +95,7 @@ jobs:
           # 创建工作目录
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-          
-          # 配置 ccache
-          ccache --set-config=max_size=10G
-          ccache --set-config=compression=true
-          ccache --set-config=compression_level=6
-          
+                 
           echo ""
           echo "📊 System Information:"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
