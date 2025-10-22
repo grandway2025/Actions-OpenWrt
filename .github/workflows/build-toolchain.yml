@@ -79,12 +79,6 @@ jobs:
     
     steps:
       # ============================================
-      # 1. 检出代码
-      # ============================================
-      - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
-
-      # ============================================
       # 2. 初始化环境（Ubuntu 24.04 优化）
       # ============================================
       - name: 🔧 Initialize Environment
@@ -110,6 +104,12 @@ jobs:
 
       - name: 🧹 Free Disk Space
         uses: sbwml/actions@free-disk
+        
+      # ============================================
+      # 1. 检出代码
+      # ============================================
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
         
       - name: 🛠️ Build System Setup
         uses: sbwml/actions@openwrt-build-setup
