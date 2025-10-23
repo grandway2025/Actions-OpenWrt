@@ -86,6 +86,29 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           echo "BUILD_DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
           
+          # 版本和构建信息
+          VERSION=$(date +'%Y.%m.%d')
+          BUILD_ID="${{ github.run_number }}-${GITHUB_SHA::7}"
+          JOBS=$(nproc)
+    
+          # 插件哈希
+          PLUGINS_HASH=$(echo "${{ github.event.inputs.docker }}-${{ github.event.inputs.ssrp }}-${{ github.event.inputs.passwall }}-${{ github.event.inputs.nikki }}-${{ github.event.inputs.openclash }}-${{ github.event.inputs.lucky }}-${{ github.event.inputs.oaf }}" | sha256sum | cut -c1-8)
+    
+          # 🔥 创建安全的文件名（移除特殊字符）
+          TARGET_SAFE=$(echo "$TARGET" | sed 's/[\/:]/-/g')
+          TARGET_ARCH_SAFE=$(echo "$TARGET_ARCH" | sed 's/[\/:]/-/g')
+    
+         {
+            echo "BUILD_VERSION=$VERSION"
+            echo "BUILD_ID=$BUILD_ID"
+            echo "COMPILE_JOBS=$JOBS"
+            echo "PLUGINS_HASH=$PLUGINS_HASH"
+            echo "WEEK_KEY=$(date +'%Y%U')"
+            echo "FILE_DATE=$(date +'%Y.%m.%d-%H%M')"
+            echo "TARGET_SAFE=$TARGET_SAFE"
+            echo "TARGET_ARCH_SAFE=$TARGET_ARCH_SAFE"
+          } >> $GITHUB_ENV
+          
           # 创建工作目录
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
@@ -411,13 +434,14 @@ jobs:
       # ============================================
       # 10. 上传 Artifact
       # ============================================
-      - name: 📤 Upload Toolchain Artifact
+      - name: 📦 Upload Toolchain Artifact
+        if: steps.build_toolchain.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: toolchain-${{ env.OPENWRT_VERSION }}-${{ env.TARGET_PLATFORM }}
-          path: /workdir/${{ env.PACKAGE_NAME }}
-          retention-days: 30
-          compression-level: 0
+          name: toolchain-${{ env.REPO_BRANCH }}-${{ env.TARGET_ARCH_SAFE }}
+          path: ${{ env.TOOLCHAIN_PATH }}
+          retention-days: 7
+          compression-level: 9
 
       # ============================================
       # 11. 创建 Release
