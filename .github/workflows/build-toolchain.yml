@@ -98,7 +98,7 @@ jobs:
           TARGET_SAFE=$(echo "$TARGET" | sed 's/[\/:]/-/g')
           TARGET_ARCH_SAFE=$(echo "$TARGET_ARCH" | sed 's/[\/:]/-/g')
     
-         {
+          {
             echo "BUILD_VERSION=$VERSION"
             echo "BUILD_ID=$BUILD_ID"
             echo "COMPILE_JOBS=$JOBS"
