@@ -38,48 +38,38 @@ env:
 
 jobs:
   check-existing:
-  name: 🔍 Check Existing Toolchain
-  runs-on: ubuntu-24.04
-  outputs:
-    should_build: ${{ steps.check.outputs.should_build }}
-    toolchain_hash: ${{ steps.check.outputs.toolchain_hash }}
+    name: 🔍 Check Existing Toolchain
+    runs-on: ubuntu-24.04
+    outputs:
+      should_build: ${{ steps.check.outputs.should_build }}
+      toolchain_hash: ${{ steps.check.outputs.toolchain_hash }}
     
     steps:
-    - name: 📥 Checkout Repository
-      uses: actions/checkout@v4
-      
-    - name: 🔍 Check Existing Toolchain
-      id: check
-      run: |
-        # 计算工具链标识
-        TARGET_HASH=$(echo "${{ env.OPENWRT_VERSION }}-${{ env.TARGET_PLATFORM }}" | md5sum | cut -d' ' -f1)
-        echo "toolchain_hash=$TARGET_HASH" >> $GITHUB_OUTPUT
-        
-        # 检查是否存在（使用 GitHub CLI）
-        if gh release view "toolchain-$TARGET_HASH" --repo ${{ github.repository }} >/dev/null 2>&1; then
-          if [ "${{ github.event.inputs.force_rebuild }}" == "true" ]; then
-            echo "🔄 Force rebuild requested"
-            echo "should_build=true" >> $GITHUB_OUTPUT
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔍 Check Existing Toolchain
+        id: check
+        run: |
+          # 计算工具链标识
+          TARGET_HASH=$(echo "${{ env.OPENWRT_VERSION }}-${{ env.TARGET_PLATFORM }}" | md5sum | cut -d' ' -f1)
+          echo "toolchain_hash=$TARGET_HASH" >> $GITHUB_OUTPUT
+          
+          # 检查是否存在
+          if gh release view "toolchain-$TARGET_HASH" >/dev/null 2>&1; then
+            if [ "${{ github.event.inputs.force_rebuild }}" == "true" ]; then
+              echo "🔄 Force rebuild requested"
+              echo "should_build=true" >> $GITHUB_OUTPUT
+            else
+              echo "✅ Toolchain already exists"
+              echo "should_build=false" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "✅ Toolchain already exists, skipping build"
-            echo "should_build=false" >> $GITHUB_OUTPUT
+            echo "🆕 Toolchain not found, will build"
+            echo "should_build=true" >> $GITHUB_OUTPUT
           fi
-        else
-          echo "🆕 Toolchain not found, will build"
-          echo "should_build=true" >> $GITHUB_OUTPUT
-        fi
-        
-        # 显示决策结果
-        echo ""
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "📋 Check Results:"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "Toolchain Hash: $TARGET_HASH"
-        echo "Should Build: $(cat $GITHUB_OUTPUT | grep should_build | cut -d'=' -f2)"
-        echo "Force Rebuild: ${{ github.event.inputs.force_rebuild }}"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build-toolchain:
     name: 🔨 Build Toolchain
